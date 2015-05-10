@@ -30,7 +30,7 @@ Register Asset
 Register asset directly to view file.
 
 ```php
-<?= \codezeen\yii2\adminlte\AutoloadExample::widget(); ?>
+<?= \codezeen\yii2\adminlte\AdminLteAsset::register($this); ?>
 ```
 
 ### Register Asset via Asset Bundle
@@ -54,7 +54,7 @@ class AppAsset extends AssetBundle
 Render Sidebar Left
 -----
 ```php
- $admin_site_menu[0] = ['label' => Yii::t('app', 'MAIN NAVIGATION'), 'options' => ['class' => 'header'], 'template' => '{label}'];
+$admin_site_menu[0] = ['label' => Yii::t('app', 'MAIN NAVIGATION'), 'options' => ['class' => 'header'], 'template' => '{label}'];
 $admin_site_menu[1] = ['label' => Yii::t('app', 'Dashboard'), 'icon' => '<i class="fa fa-dashboard"></i>', 'options' => ['class' => 'treeview'], 'items' => [
     ['icon' => '<i class="fa fa-circle-o"></i>', 'label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
 ]];
