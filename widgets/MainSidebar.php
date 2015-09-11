@@ -18,56 +18,106 @@ use yii\helpers\ArrayHelper;
  * Class MainSidebar.
  * Create main sidebar for admin-lte.
  * ```php
- * $admin_site_menu[0] = ['label' => Yii::t('app', 'MAIN NAVIGATION'), 'options' => ['class' => 'header'], 'template'
- * => '{label}'];
- * $admin_site_menu[1] = ['label' => Yii::t('app', 'Dashboard'), 'icon' => '<i class="fa fa-dashboard"></i>', 'options'
- * => ['class' => 'treeview'], 'items' => [
- *     ['icon' => '<i class="fa fa-circle-o"></i>', 'label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
- *     ['icon' => '<i class="fa fa-circle-o"></i>', 'label' => Yii::t('app', 'Update'), 'url' => '#'],
+ * $adminSiteMenu[0] = ['label' => 'MAIN NAVIGATION', 'options' => ['class' => 'header'], 'template' => '{label}'];
+ * $adminSiteMenu[1] = ['label' => 'Dashboard', 'icon' => 'fa fa-dashboard', 'items' => [
+ *     ['icon' => 'fa fa-circle-o text-red', 'label' => 'Home', 'url' => ['/site/index']],
  * ]];
- * // Shorting menu by index
- * ksort($admin_site_menu);
+ * $adminSiteMenu[2] = ['label' => 'BADGE AND MULTILEVEL', 'options' => ['class' => 'header'], 'template' => '{label}'];
+ * $adminSiteMenu[3] = ['label' => 'Multilevel', 'icon' => 'fa fa-share', 'options' => ['class' => 'treeview'], 'items' => [
+ *     ['icon' => 'fa fa-circle-o text-yellow', 'label' => 'Level One', 'url' => '#'],
+ *     ['icon' => 'fa fa-circle-o text-aqua', 'label' => 'Level One', 'url' => '#', 'items' => [
+ *         ['icon' => 'fa fa-circle-o', 'label' => 'Badge', 'url' => '#', 'badge' => '2'],
+ *         ['icon' => 'fa fa-circle-o', 'label' => 'Badge red', 'url' => '#', 'badge' => '2', 'badgeBgClass' => 'bg-red'],
+ *         ['icon' => 'fa fa-circle-o', 'label' => 'Badge options', 'url' => '#', 'badge' => '2', 'badgeOptions' => [
+ *             'class' => 'label pull-right bg-yellow'
+ *         ]],
+ *     ]],
+ *     ['icon' => 'fa fa-circle-o text-red', 'label' => 'Level One', 'url' => ['/user/view','id' => '1']],
+ * ]];
+ * ksort($adminSiteMenu);
  * echo MainSidebar::widget([
- *     'options'         => ['class' => 'sidebar-menu'],
- *     'linkTemplate'    => '<a href="{url}">{icon}<span>{label}</span>{right-icon}{badge}</a>',
- *     'submenuTemplate' => "\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n",
- *     'activateParents' => true,
- *     'items'           => $admin_site_menu,
+ *     'items'   => $adminSiteMenu,
  * ]);
  * ```
- *
  * @author Agiel K. Saputra
  */
 class MainSidebar extends Menu
 {
     /**
-     * @var string
+     * @inheritdoc
      */
-    public $linkTemplate = '<a href="{url}" {linkOptions}>\n{icon}\n{label}\n{right-icon}\n{badge}</a>';
+    public $linkTemplate = '<a href="{url}" {linkOptions}>{icon}<span>{label}</span>{right-icon}{badge}</a>';
+    public $labelTemplate = '<a href="#">{icon}<span>{label}</span>{right-icon}{badge}</a>';
+    public $submenuTemplate = "\n<ul class=\"treeview-menu{open}\"{block}>\n{items}\n</ul>\n";
+    public $activateParents = true;
+    public $options = ['class' => 'sidebar-menu'];
+
     /**
-     * @var string
-     */
-    public $labelTemplate = '{icon}\n{label}\n{badge}';
-    /**
-     * @var string
-     */
-    public $submenuTemplate = "\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n";
-    /**
-     * @var string
+     * @var string Default tag for badge.
      */
     public $badgeTag = 'small';
     /**
-     * @var string
+     * @var string Default class for badge.
      */
     public $badgeClass = 'badge pull-right';
     /**
-     * @var string
+     * @var string Default background color of badge.
      */
     public $badgeBgClass = 'bg-green';
     /**
-     * @var string
+     * @var string Class of parent icon
      */
-    public $parentRightIcon = '<i class="fa fa-angle-left pull-right"></i>';
+    public $parentRightIcon = 'fa fa-angle-left pull-right';
+
+    /**
+     * @inheritdoc
+     */
+    protected function renderItems($items)
+    {
+        $n = count($items);
+        $lines = [];
+        foreach ($items as $i => $item) {
+            $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
+            $tag = ArrayHelper::remove($options, 'tag', 'li');
+            $class = [];
+            if (!empty($item['items'])) {
+                $class[] = 'treeview';
+            }
+            if ($item['active']) {
+                $class[] = $this->activeCssClass;
+            }
+            if ($i === 0 && $this->firstItemCssClass !== null) {
+                $class[] = $this->firstItemCssClass;
+            }
+            if ($i === $n - 1 && $this->lastItemCssClass !== null) {
+                $class[] = $this->lastItemCssClass;
+            }
+            if (!empty($class)) {
+                if (empty($options['class'])) {
+                    $options['class'] = implode(' ', $class);
+                } else {
+                    $options['class'] .= ' ' . implode(' ', $class);
+                }
+            }
+
+            $menu = $this->renderItem($item);
+            if (!empty($item['items'])) {
+                $submenuTemplate = ArrayHelper::getValue($item, 'submenuTemplate', $this->submenuTemplate);
+                $menu .= strtr($submenuTemplate, [
+                    '{open}' => $item['active'] ? ' menu-open' : '',
+                    '{block}' => $item['active'] ? 'style="display: block"' : '',
+                    '{items}' => $this->renderItems($item['items']),
+                ]);
+            }
+            if ($tag === false) {
+                $lines[] = $menu;
+            } else {
+                $lines[] = Html::tag($tag, $menu, $options);
+            }
+        }
+
+        return implode("\n", $lines);
+    }
 
     /**
      * @inheritdoc
@@ -77,8 +127,8 @@ class MainSidebar extends Menu
         $item['badgeOptions'] = isset($item['badgeOptions']) ? $item['badgeOptions'] : [];
 
         if (!ArrayHelper::getValue($item, 'badgeOptions.class')) {
-            $bg = isset($item['badgeBgClass']) ? $item['badgeBgClass'] : $this->badgeBgClass;
-            $item['badgeOptions']['class'] = $this->badgeClass . ' ' . $bg;
+            $badgeBgClass = isset($item['badgeBgClass']) ? $item['badgeBgClass'] : $this->badgeBgClass;
+            $item['badgeOptions']['class'] = $this->badgeClass . ' ' . $badgeBgClass;
         }
 
         if (isset($item['items']) && !isset($item['right-icon'])) {
@@ -89,22 +139,22 @@ class MainSidebar extends Menu
             $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
 
             return strtr($template, [
-                '{badge}'          => isset($item['badge']) ? Html::tag('small', $item['badge'], $item['badgeOptions']) : '',
-                '{icon}'           => isset($item['icon']) ? $item['icon'] : '',
-                '{right-icon}'     => isset($item['right-icon']) ? $item['right-icon'] : '',
-                '{url}'            => Url::to($item['url']),
-                '{label}'          => $item['label'],
-                '{linkOptions}'    => isset($item['linkOptions']) ? Html::renderTagAttributes($item['linkOptions']): ''
+                '{icon}'        => isset($item['icon']) ? '<i class="' . $item['icon'] . '"></i> ' : null,
+                '{url}'         => Html::encode(Url::to($item['url'])),
+                '{label}'       => $item['label'],
+                '{right-icon}'  => isset($item['right-icon']) ? '<i class="' . $item['right-icon'] . '"></i>' : null,
+                '{badge}'       => isset($item['badge']) ? Html::tag($this->badgeTag, $item['badge'], $item['badgeOptions']) : null,
+                '{linkOptions}' => isset($item['linkOptions']) ? Html::renderTagAttributes($item['linkOptions']) : null
             ]);
         } else {
             $template = ArrayHelper::getValue($item, 'template', $this->labelTemplate);
 
             return strtr($template, [
-                '{badge}'          => isset($item['badge']) ? Html::tag('small', $item['badge'], $item['badgeOptions']) : '',
-                '{icon}'           => isset($item['icon']) ? $item['icon'] : '',
-                '{right-icon}'     => isset($item['right-icon']) ? $item['right-icon'] : '',
-                '{label}'          => $item['label'],
-                '{linkOptions}'    => isset($item['linkOptions']) ? Html::renderTagAttributes($item['linkOptions']): ''
+                '{icon}'        => isset($item['icon']) ? '<i class="' . $item['icon'] . '"></i> ' : null,
+                '{label}'       => $item['label'],
+                '{right-icon}'  => isset($item['right-icon']) ? '<i class="' . $item['right-icon'] . '"></i>' : null,
+                '{badge}'       => isset($item['badge']) ? Html::tag($this->badgeTag, $item['badge'], $item['badgeOptions']) : null,
+                '{linkOptions}' => isset($item['linkOptions']) ? Html::renderTagAttributes($item['linkOptions']) : null
             ]);
         }
     }

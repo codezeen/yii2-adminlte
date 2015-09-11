@@ -15,8 +15,7 @@
         "cebe/yii2-gravatar": "*",
         "rmrevin/yii2-fontawesome": "2.10.1",
         "codezeen/yii2-fastclick": "1.0",
-
-        "bower-asset/adminlte": "~2.1.0"
+        "bower-asset/adminlte": "2.3.0"
 
     },
     "autoload": {
@@ -28,23 +27,6 @@
         "asset-installer-paths": {
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
-        },
-        "asset-ignore-files": {
-            "bower-asset/adminlte": [
-                "/.*",
-                "bootstrap",
-                "build",
-                "documentation",
-                "pages",
-                "plugins",
-                "node_modules",
-                "bower_components",
-                "composer.json",
-                "*.html",
-                "*.json",
-                "*.md",
-                "*.js"
-            ]
         },
         "branch-alias": {
             "dev-master": "1.0.x-dev"

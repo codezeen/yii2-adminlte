@@ -54,26 +54,25 @@ class AppAsset extends AssetBundle
 Render Sidebar Left
 -----
 ```php
-$admin_site_menu[0] = ['label' => Yii::t('app', 'MAIN NAVIGATION'), 'options' => ['class' => 'header'], 'template' => '{label}'];
-$admin_site_menu[1] = ['label' => Yii::t('app', 'Dashboard'), 'icon' => '<i class="fa fa-dashboard"></i>', 'options' => ['class' => 'treeview'], 'items' => [
-    ['icon' => '<i class="fa fa-circle-o"></i>', 'label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
+$adminSiteMenu[0] = ['label' => 'MAIN NAVIGATION', 'options' => ['class' => 'header'], 'template' => '{label}'];
+$adminSiteMenu[1] = ['label' => 'Dashboard', 'icon' => 'fa fa-dashboard', 'items' => [
+    ['icon' => 'fa fa-circle-o text-red', 'label' => 'Home', 'url' => ['/site/index']],
 ]];
-$admin_site_menu[10] = ['label' => Yii::t('app', 'User'), 'icon' => '<i class="fa fa-user"></i>', 'options' => ['class' => 'treeview'], 'items' => [
-    ['icon' => '<i class="fa fa-circle-o"></i>', 'label' => Yii::t('app', 'Login'), 'url' => ['/site/login'], 'visible' => Yii::$app->user->isGuest],
-    ['icon' => '<i class="fa fa-circle-o"></i>', 'label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post'], 'visible' => !Yii::$app->user->isGuest],
+$adminSiteMenu[2] = ['label' => 'BADGE AND MULTILEVEL', 'options' => ['class' => 'header'], 'template' => '{label}'];
+$adminSiteMenu[3] = ['label' => 'Multilevel', 'icon' => 'fa fa-share', 'options' => ['class' => 'treeview'], 'items' => [
+    ['icon' => 'fa fa-circle-o text-yellow', 'label' => 'Level One', 'url' => '#'],
+    ['icon' => 'fa fa-circle-o text-aqua', 'label' => 'Level One', 'url' => '#', 'items' => [
+        ['icon' => 'fa fa-circle-o', 'label' => 'Badge', 'url' => '#', 'badge' => '2'],
+        ['icon' => 'fa fa-circle-o', 'label' => 'Badge red', 'url' => '#', 'badge' => '2', 'badgeBgClass' => 'bg-red'],
+        ['icon' => 'fa fa-circle-o', 'label' => 'Badge options', 'url' => '#', 'badge' => '2', 'badgeOptions' => [
+            'class' => 'label pull-right bg-yellow'
+        ]],
+    ]],
+    ['icon' => 'fa fa-circle-o text-red', 'label' => 'Level One', 'url' => ['/user/view','id' => '1']],
 ]];
-$admin_site_menu[2] = ['label' => Yii::t('app', 'Posts'), 'icon' => '<i class="fa fa-thumb-tack"></i>', 'options' => ['class' => 'treeview'], 'items' => [
-    ['icon' => '<i class="fa fa-circle-o"></i>', 'label' => Yii::t('app', 'All Posts'), 'url' => ['/site/index'], 'badge' => 13],
-]];
-// Short the menu
-ksort($admin_site_menu);
+ksort($adminSiteMenu);
 echo MainSidebar::widget([
-    'options'         => ['class' => 'sidebar-menu'],
-    'labelTemplate'   => '<a href="#">{icon}<span>{label}</span>{right-icon}{badge}</a>',
-    'linkTemplate'    => '<a href="{url}" {linkOptions}>{icon}<span>{label}</span>{right-icon}{badge}</a>',
-    'submenuTemplate' => "\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n",
-    'activateParents' => true,
-    'items'           => $admin_site_menu,
+    'items'   => $adminSiteMenu,
 ]);
 ```
 
