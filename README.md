@@ -30,10 +30,11 @@ Register Asset
 Register asset directly to view file.
 
 ```php
-<?= \codezeen\yii2\adminlte\AdminLteAsset::register($this); ?>
+\codezeen\yii2\adminlte\AdminLteAsset::register($this);
 ```
 
 ### Register Asset via Asset Bundle
+
 ```php
 class AppAsset extends AssetBundle
 {
@@ -54,26 +55,54 @@ class AppAsset extends AssetBundle
 Render Sidebar Left
 -----
 ```php
+use codezeen\yii2\adminlte\widgets\Menu;
+```
+ 
+```php
 $adminSiteMenu[0] = ['label' => 'MAIN NAVIGATION', 'options' => ['class' => 'header'], 'template' => '{label}'];
-$adminSiteMenu[1] = ['label' => 'Dashboard', 'icon' => 'fa fa-dashboard', 'items' => [
-    ['icon' => 'fa fa-circle-o text-red', 'label' => 'Home', 'url' => ['/site/index']],
-]];
-$adminSiteMenu[2] = ['label' => 'BADGE AND MULTILEVEL', 'options' => ['class' => 'header'], 'template' => '{label}'];
-$adminSiteMenu[3] = ['label' => 'Multilevel', 'icon' => 'fa fa-share', 'options' => ['class' => 'treeview'], 'items' => [
-    ['icon' => 'fa fa-circle-o text-yellow', 'label' => 'Level One', 'url' => '#'],
-    ['icon' => 'fa fa-circle-o text-aqua', 'label' => 'Level One', 'url' => '#', 'items' => [
-        ['icon' => 'fa fa-circle-o', 'label' => 'Badge', 'url' => '#', 'badge' => '2'],
-        ['icon' => 'fa fa-circle-o', 'label' => 'Badge red', 'url' => '#', 'badge' => '2', 'badgeBgClass' => 'bg-red'],
-        ['icon' => 'fa fa-circle-o', 'label' => 'Badge options', 'url' => '#', 'badge' => '2', 'badgeOptions' => [
-            'class' => 'label pull-right bg-yellow'
-        ]],
-    ]],
-    ['icon' => 'fa fa-circle-o text-red', 'label' => 'Level One', 'url' => ['/user/view','id' => '1']],
-]];
+$adminSiteMenu[1] = [
+    'label' => 'Dashboard',
+    'icon'  => 'fa fa-dashboard',
+    'items' => [['icon' => 'fa fa-circle-o', 'label' => 'Home', 'url' => ['/site/index']]],
+];
+$adminSiteMenu[2] = [
+    'label'    => 'BADGE AND MULTILEVEL',
+    'options'  => ['class' => 'header'],
+    'template' => '{label}',
+];
+$adminSiteMenu[3] = [
+    'label'   => 'Multilevel',
+    'icon'    => 'fa fa-share',
+    'options' => ['class' => 'treeview'],
+    'items'   => [
+        ['icon' => 'fa fa-circle-o', 'label' => 'Level One', 'url' => '#'],
+        [
+            'icon'  => 'fa fa-circle-o',
+            'label' => 'Level One',
+            'url'   => '#',
+            'items' => [
+                ['icon' => 'fa fa-circle-o', 'label' => 'Badge', 'url' => '#', 'badge' => '2'],
+                [
+                    'icon'         => 'fa fa-circle-o',
+                    'label'        => 'Badge red',
+                    'url'          => '#',
+                    'badge'        => '2',
+                   'badgeBgClass' => 'bg-red',
+                ],
+                [
+                    'icon'         => 'fa fa-circle-o',
+                    'label'        => 'Badge options',
+                    'url'          => '#',
+                    'badge'        => '2',
+                    'badgeOptions' => ['class' => 'label pull-right bg-yellow'],
+                ],
+            ],
+        ],
+        ['icon' => 'fa fa-circle-o', 'label' => 'Level One', 'url' => '#'],
+    ],
+];
 ksort($adminSiteMenu);
-echo MainSidebar::widget([
-    'items'   => $adminSiteMenu,
-]);
+echo Menu::widget([items' => $adminSiteMenu]);
 ```
 
 Using Theme
@@ -98,7 +127,7 @@ Change Skin and Layout
 The default skin configured on params.php. You can override the skin on the controller.
 ```php
 return [
-    // Others params
+    // Other params
     'bodyClass' => 'skin-blue sidebar-mini',
     // Other params
 ];

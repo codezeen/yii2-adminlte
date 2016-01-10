@@ -13,10 +13,9 @@
     "require": {
         "yiisoft/yii2": "*",
         "cebe/yii2-gravatar": "*",
-        "rmrevin/yii2-fontawesome": "2.10.1",
-        "codezeen/yii2-fastclick": "1.0",
-        "bower-asset/adminlte": "2.3.0"
-
+        "rmrevin/yii2-fontawesome": "~2.13",
+        "codezeen/yii2-fastclick": "~1.0",
+        "bower-asset/adminlte": "~2.3"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +28,7 @@
             "bower-asset-library": "vendor/bower"
         },
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.2.x-dev"
         }
     }
 }

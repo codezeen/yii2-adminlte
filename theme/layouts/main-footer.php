@@ -1,10 +1,8 @@
 <?php
 /**
- * @file    blank.php.
- * @author  Agiel K. Saputra
- * @date    5/8/2015
- * @time    3:13 PM
+ * @author  Agiel K. Saputra <13nightevil@gmail.com>
  */
+
 ?>
 <footer class="main-footer">
     <div class="pull-right hidden-xs">

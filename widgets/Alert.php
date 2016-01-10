@@ -24,6 +24,7 @@ namespace codezeen\yii2\adminlte\widgets;
  * ```
  *
  * @author Agiel K. Saputra <13nightevil@gmail.com>
+ * @since  1.0
  */
 class Alert extends \yii\bootstrap\Widget
 {
@@ -75,24 +76,19 @@ class Alert extends \yii\bootstrap\Widget
         $appendCss = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
         foreach ($flashes as $type => $data) {
-
-            if (isset($this->alertTypes[ $type ])) {
+            if (isset($this->alertTypes[$type])) {
                 $data = (array)$data;
-
                 foreach ($data as $i => $message) {
-                    $this->options['class'] = $this->alertTypes[ $type ]['class'] . $appendCss;
+                    $this->options['class'] = $this->alertTypes[$type]['class'] . $appendCss;
                     $this->options['id'] = $this->getId() . '-' . $type . '-' . $i;
                     echo \yii\bootstrap\Alert::widget([
-                        'body'        => $this->alertTypes[ $type ]['icon'] . $message,
+                        'body'        => $this->alertTypes[$type]['icon'] . $message,
                         'closeButton' => $this->closeButton,
                         'options'     => $this->options,
                     ]);
                 }
-
                 $session->removeFlash($type);
             }
-
         }
-
     }
 }

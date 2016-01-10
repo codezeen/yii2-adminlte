@@ -1,30 +1,18 @@
 <?php
 /**
- * @file    blank.php.
- * @author  Agiel K. Saputra
- * @date    5/8/2015
- * @time    3:13 PM
- * @var $this    \yii\web\View
- * @var $content string
+ * @author  Agiel K. Saputra <13nightevil@gmail.com>
  */
 
-use yii\bootstrap\NavBar;
-use yii\helpers\Html;
 use cebe\gravatar\Gravatar;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 <header class="main-header">
-    <?php
-    // Render logo
-    echo Html::a(
-        // mini logo for sidebar mini 50x50 pixels
-        Html::tag('span', '<b>A</b>LT', ['class' => 'logo-mini']) .
-        // logo for regular state and mobile devices
-        Html::tag('span', Yii::$app->name, ['class' => 'logo-lg']), Yii::$app->homeUrl,
-        [
-            'class' => 'logo'
-        ]);
-    ?>
+    <a href="<?= Url::base(true) ?>" class="logo">
+        <span class="logo-mini"><b>A</b>LT</span>
+        <span class="logo-lg"><?= Yii::$app->name ?></span>
+    </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -33,8 +21,7 @@ use cebe\gravatar\Gravatar;
             <ul class="nav navbar-nav">
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
+                        <i class="fa fa-envelope-o"></i> <span class="label label-success">4</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 4 messages</li>
@@ -47,10 +34,11 @@ use cebe\gravatar\Gravatar;
                                                 'email'   => 'example@mail.com',
                                                 'options' => [
                                                     'alt'   => 'example@mail.com',
-                                                    'class' => 'img-circle'
+                                                    'class' => 'img-circle',
                                                 ],
-                                                'size'    => 128
-                                            ]); ?>
+                                                'size'    => 128,
+                                            ]) ?>
+
                                         </div>
                                         <h4>
                                             Support Team
@@ -66,10 +54,11 @@ use cebe\gravatar\Gravatar;
                                                 'email'   => 'example@mail.com',
                                                 'options' => [
                                                     'alt'   => 'example@mail.com',
-                                                    'class' => 'img-circle'
+                                                    'class' => 'img-circle',
                                                 ],
-                                                'size'    => 128
-                                            ]); ?>
+                                                'size'    => 128,
+                                            ]) ?>
+
                                         </div>
                                         <h4>
                                             AdminLTE Design Team
@@ -85,10 +74,11 @@ use cebe\gravatar\Gravatar;
                                                 'email'   => 'example@mail.com',
                                                 'options' => [
                                                     'alt'   => 'example@mail.com',
-                                                    'class' => 'img-circle'
+                                                    'class' => 'img-circle',
                                                 ],
-                                                'size'    => 128
-                                            ]); ?>
+                                                'size'    => 128,
+                                            ]) ?>
+
                                         </div>
                                         <h4>
                                             Developers
@@ -104,10 +94,11 @@ use cebe\gravatar\Gravatar;
                                                 'email'   => 'example@mail.com',
                                                 'options' => [
                                                     'alt'   => 'example@mail.com',
-                                                    'class' => 'img-circle'
+                                                    'class' => 'img-circle',
                                                 ],
-                                                'size'    => 128
-                                            ]); ?>
+                                                'size'    => 128,
+                                            ]) ?>
+
                                         </div>
                                         <h4>
                                             Sales Department
@@ -123,10 +114,11 @@ use cebe\gravatar\Gravatar;
                                                 'email'   => 'example@mail.com',
                                                 'options' => [
                                                     'alt'   => 'example@mail.com',
-                                                    'class' => 'img-circle'
+                                                    'class' => 'img-circle',
                                                 ],
-                                                'size'    => 128
-                                            ]); ?>
+                                                'size'    => 128,
+                                            ]) ?>
+
                                         </div>
                                         <h4>
                                             Reviewers
@@ -142,8 +134,7 @@ use cebe\gravatar\Gravatar;
                 </li>
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <i class="fa fa-bell-o"></i> <span class="label label-warning">10</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 10 notifications</li>
@@ -156,8 +147,8 @@ use cebe\gravatar\Gravatar;
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                        page and may cause design problems
+                                        <i class="fa fa-warning text-yellow"></i> Very long description here that may
+                                        not fit into the page and may cause design problems
                                     </a>
                                 </li>
                                 <li>
@@ -165,7 +156,6 @@ use cebe\gravatar\Gravatar;
                                         <i class="fa fa-users text-red"></i> 5 new members joined
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="#">
                                         <i class="fa fa-shopping-cart text-green"></i> 25 sales made
@@ -183,8 +173,7 @@ use cebe\gravatar\Gravatar;
                 </li>
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">9</span>
+                        <i class="fa fa-flag-o"></i> <span class="label label-danger">9</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 9 tasks</li>
@@ -197,8 +186,9 @@ use cebe\gravatar\Gravatar;
                                             <small class="pull-right">20%</small>
                                         </h3>
                                         <div class="progress xs">
-                                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                 role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <span class="sr-only">20% Complete</span>
                                             </div>
                                         </div>
@@ -211,8 +201,9 @@ use cebe\gravatar\Gravatar;
                                             <small class="pull-right">40%</small>
                                         </h3>
                                         <div class="progress xs">
-                                            <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar progress-bar-green" style="width: 40%"
+                                                 role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <span class="sr-only">40% Complete</span>
                                             </div>
                                         </div>
@@ -225,8 +216,9 @@ use cebe\gravatar\Gravatar;
                                             <small class="pull-right">60%</small>
                                         </h3>
                                         <div class="progress xs">
-                                            <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar progress-bar-red" style="width: 60%"
+                                                 role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <span class="sr-only">60% Complete</span>
                                             </div>
                                         </div>
@@ -239,8 +231,9 @@ use cebe\gravatar\Gravatar;
                                             <small class="pull-right">80%</small>
                                         </h3>
                                         <div class="progress xs">
-                                            <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar progress-bar-yellow" style="width: 80%"
+                                                 role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                 aria-valuemax="100">
                                                 <span class="sr-only">80% Complete</span>
                                             </div>
                                         </div>
@@ -254,17 +247,18 @@ use cebe\gravatar\Gravatar;
                     </ul>
                 </li>
 
-                <?php if (!Yii::$app->user->isGuest) { ?>
+                <?php if (!Yii::$app->user->isGuest): ?>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <?= Gravatar::widget([
                                 'email'   => Yii::$app->user->identity->email,
                                 'options' => [
                                     'alt'   => Yii::$app->user->identity->username,
-                                    'class' => 'user-image'
+                                    'class' => 'user-image',
                                 ],
-                                'size'    => 25
-                            ]); ?>
+                                'size'    => 25,
+                            ]) ?>
+
                             <span class="hidden-xs"><?= Yii::$app->user->identity->username; ?></span>
                         </a>
                         <ul class="dropdown-menu">
@@ -273,26 +267,49 @@ use cebe\gravatar\Gravatar;
                                     'email'   => Yii::$app->user->identity->email,
                                     'options' => [
                                         'alt'   => Yii::$app->user->identity->username,
-                                        'class' => 'img-circle'
+                                        'class' => 'img-circle',
                                     ],
-                                    'size'    => 84
-                                ]); ?>
+                                    'size'    => 84,
+                                ]) ?>
+
                                 <p>
                                     <?= Yii::$app->user->identity->username; ?>
-                                    <small><?= Yii::t('app', 'Member since {date}', ['date' => Yii::$app->formatter->asDate(Yii::$app->user->identity->created_at, 'php:F d, Y')]); ?></small>
+                                    <small>
+                                        <?= Yii::t(
+                                            'app', 'Member since {date}', [
+                                                'date' => Yii::$app->formatter->asDate(
+                                                    Yii::$app
+                                                        ->user
+                                                        ->identity
+                                                        ->created_at,
+                                                    'php:F d, Y'
+                                                ),
+                                            ]
+                                        ) ?>
+                                    </small>
                                 </p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <?= Html::a(Yii::t('app', 'Profile'), '#', ['class' => 'btn btn-default btn-flat']); ?>
+                                    <?= Html::a(
+                                        Yii::t('app', 'Profile'),
+                                        '#',
+                                        ['class' => 'btn btn-default btn-flat'])
+                                    ?>
+
                                 </div>
                                 <div class="pull-right">
-                                    <?= Html::a(Yii::t('app', 'Sign Out'), ['/site/logout'], ['class' => 'btn btn-default btn-flat', 'data-method' => 'post']); ?>
+                                    <?= Html::a(
+                                        Yii::t('app', 'Sign Out'),
+                                        ['/site/logout'],
+                                        ['class' => 'btn btn-default btn-flat', 'data-method' => 'post']
+                                    ) ?>
+
                                 </div>
                             </li>
                         </ul>
                     </li>
-                <?php } ?>
+                <?php endif ?>
 
             </ul>
         </div>

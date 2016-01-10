@@ -1,29 +1,28 @@
 <?php
 /**
- * @file    blank.php.
- * @author  Agiel K. Saputra
- * @date    5/8/2015
- * @time    3:13 PM
- * @var $this \yii\web\View
- * @var $content string
+ * @author  Agiel K. Saputra <13nightevil@gmail.com>
  */
 
-use yii\helpers\Html;
+/* @var $this \yii\web\View */
+/* @var $content string */
+
 use codezeen\yii2\adminlte\AdminLteAsset;
+use yii\helpers\Html;
 
 AdminLteAsset::register($this);
 
 /**
  * If you're using AdminLteAsset as dependency in AppAsset, then use AppAsset.
+ *
  * ```php
  * use \backend\assets\AppAsset
  * AppAsset::register($this)
  * ```
+ *
  * Yii::$app->params['bodyClass'] is a skin of admin-lte, ex: skin-blue, skin-black, etc.
  * You can define it in the controller or config/params.php
  */
 ?>
-
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -35,10 +34,10 @@ AdminLteAsset::register($this);
     <title>WritesDown &raquo; <?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="<?= isset(Yii::$app->params['bodyClass'])? Yii::$app->params['bodyClass'] : "skin-blue sidebar-mini"; ?>">
-    <?php $this->beginBody() ?>
-    <?= $content; ?>
-    <?php $this->endBody() ?>
+<body class="<?= isset(Yii::$app->params['bodyClass']) ? Yii::$app->params['bodyClass'] : "skin-blue sidebar-mini"; ?>">
+<?php $this->beginBody() ?>
+<?= $content; ?>
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
